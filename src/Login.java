@@ -23,15 +23,9 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
-      initComponents();
-       Border borderlabel  = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black );
-      jLabel5.setBorder(borderlabel);
-      jLabel4.setBorder(borderlabel);
       
-      Border border  = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white );
-      jTextFieldlogin.setBorder(border);
-      jPasswordField1.setBorder(border);
-      
+       initComponents();
+       
     }
 
     
@@ -259,23 +253,32 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnresetActionPerformed
 
     private void btnconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconnectActionPerformed
-        String login = jTextFieldlogin.getText();
-        String pwd = jPasswordField1.getText();
-        
-        System.out.println(  "login:!"+ login);
-        System.out.println(  "password:!"+ pwd); 
-        
+                                                 
+    String login = jTextFieldlogin.getText();
+    String pwd = jPasswordField1.getText();
+
+    if (login.isEmpty() || pwd.isEmpty()) {
+        // Affichez une boîte de dialogue si les champs sont vides
+        JOptionPane.showMessageDialog(this, "Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
+    } else {
+        System.out.println("Login: " + login);
+        System.out.println("Password: " + "");
+
         UserControler uc = new UserControler();
         User u = uc.findByLoginPwd(login, pwd);
-        if (u== null ){
-            System.out.println("User not found");
-        
-        }else {
-            System.out.println("User found! ");
+
+        if (u == null) {
+            // Affichez une boîte de dialogue si l'utilisateur n'est pas trouvé
+            JOptionPane.showMessageDialog(this, "Utilisateur non trouvé. Veuillez vérifier vos identifiants.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Affichez une boîte de dialogue si l'utilisateur est trouvé
+            JOptionPane.showMessageDialog(this, "Connexion réussie. Bienvenue, " + u.getLogin() + "!", "Succès", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
             new Index().setVisible(true);
-            
+             
         }
+    }
+
     }//GEN-LAST:event_btnconnectActionPerformed
 
     private void jlabelcreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabelcreateMouseClicked
@@ -351,7 +354,7 @@ public class Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
+         
             public void run() {
                
                 Login login = new Login();
