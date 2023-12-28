@@ -23,10 +23,7 @@ import configs.Crude;
 import javax.swing.*;
 
 
-/**
- *
- * @author OMRANI
- */
+
 public class UserControler {
  private Crude crude = new Crude();
  

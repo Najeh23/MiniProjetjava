@@ -6,7 +6,18 @@
 /**
  *
  * @author wiki
- */
+*/
+
+import Model.Vol;
+import Controler.VolControler;
+
+import Controler.EscaleControler;
+import java.awt.Color;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 public class Index extends javax.swing.JFrame {
 
     /**
@@ -14,6 +25,7 @@ public class Index extends javax.swing.JFrame {
      */
     public Index() {
         initComponents();
+      
     }
 
     /**
@@ -25,11 +37,78 @@ public class Index extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrame1 = new javax.swing.JInternalFrame();
+        jLabel1 = new javax.swing.JLabel();
+
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 531, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 381, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setText("VOLs");
+        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 220, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
+
+                                     
+    // TODO add your handling code here:
+    VolControler volControler = new VolControler();
+    
+    // Récupérer tous les vols depuis la base de données en utilisant la méthode select
+    List<Vol> tousLesVols = volControler.getAll();
+
+    // Traiter les résultats
+    for (Vol vol : tousLesVols) {
+        // Accéder aux colonnes de chaque vol
+        int id = vol.getId();
+        String aeroportDepart = vol.getAeroportDepart();
+        String aeroportArrivee = vol.getAeroportArrivee();
+        String heureDepart = vol.getHeureDepart();
+        String heureArrivee = vol.getHeureArrivee();
+        String dateDepart = vol.getDateDepart();
+        String dateArrivee = vol.getDateArrivee();
+
+        // Faire quelque chose avec ces valeurs, par exemple, les afficher
+        System.out.println("ID: " + id);
+        System.out.println("Aéroport de départ: " + aeroportDepart);
+        System.out.println("Aéroport d'arrivée: " + aeroportArrivee);
+        System.out.println("Heure de départ: " + heureDepart);
+        System.out.println("Heure d'arrivée: " + heureArrivee);
+        System.out.println("Date de départ: " + dateDepart);
+        System.out.println("Date d'arrivée: " + dateArrivee);
+        System.out.println("-----");
+        
+        
+    }
+   
+           
+
+    
+            
+    }//GEN-LAST:event_jLabel1AncestorAdded
 
     /**
      * @param args the command line arguments
@@ -67,5 +146,7 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
