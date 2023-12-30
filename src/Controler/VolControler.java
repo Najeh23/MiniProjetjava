@@ -2,7 +2,7 @@ package Controler;
 
 
 
-import Model.Vol;
+import Model.VolC;
 import java.sql.*;
 import java.util.*;
 import configs.Crude;
@@ -13,7 +13,7 @@ import javax.swing.*;
 public class VolControler {
     private Crude crude = new Crude();
 
-    public boolean insert(Vol vol) {
+    public boolean insert(VolC vol) {
         String sql = "INSERT INTO vol(AeroportDepart, AeroportArrivee, HeureDepart, HeureArrivee, DateDepart, DateArrivee) VALUES ('"
                 + vol.getAeroportDepart() + "','" + vol.getAeroportArrivee() + "','" + vol.getHeureDepart() + "','" 
                 + vol.getHeureArrivee() + "','" + vol.getDateDepart() + "','" + vol.getDateArrivee() + "')";
@@ -21,7 +21,7 @@ public class VolControler {
         return crude.exeCreate(sql);
     }
 
-    public boolean update(Vol vol, Integer id) {
+    public boolean update(VolC vol, Integer id) {
         String sql = "UPDATE vol SET AeroportDepart='" + vol.getAeroportDepart() + "', AeroportArrivee='"
                 + vol.getAeroportArrivee() + "' , HeureDepart= '" + vol.getHeureDepart() + "', HeureArrivee = '" 
                 + vol.getHeureArrivee() + "', DateDepart = '" + vol.getDateDepart() + "', DateArrivee = '" 
@@ -29,18 +29,18 @@ public class VolControler {
         return crude.exeUpdate(sql);
     }
 
-    public boolean delete(Vol vol) {
+    public boolean delete(VolC vol) {
         String sql = "DELETE FROM vol WHERE id=" + vol.getId();
         return crude.exeDelete(sql);
     }
 
-    public List<Vol> getAll() {
+    public List<VolC> getAll() {
         try {
             String sql = "SELECT * FROM vol";
             ResultSet rs = crude.exeRead(sql);
-            List<Vol> liste = new ArrayList<Vol>();
+            List<VolC> liste = new ArrayList<VolC>();
             while (rs.next()) {
-                Vol vol = new Vol();
+                VolC vol = new VolC();
                 vol.setId(rs.getInt(1));
                 vol.setAeroportDepart(rs.getString(2));
                 vol.setAeroportArrivee(rs.getString(3));
@@ -59,11 +59,11 @@ public class VolControler {
         }
     }
 
-    public Vol findByID(int id) {
+    public VolC findByID(int id) {
         try {
             String sql = "SELECT * FROM vol WHERE Id = " + id;
             ResultSet rs = crude.exeRead(sql);
-            Vol vol = new Vol();
+            VolC vol = new VolC();
             while (rs.next()) {
                 vol.setId(rs.getInt(1));
                 vol.setAeroportDepart(rs.getString(2));
@@ -81,14 +81,14 @@ public class VolControler {
         }
     }
 
-    public Vol findByAeroportsAndDates(String aeroportDepart, String aeroportArrivee, String dateDepart, String dateArrivee) {
-        Vol vol = null;
+    public VolC findByAeroportsAndDates(String aeroportDepart, String aeroportArrivee, String dateDepart, String dateArrivee) {
+        VolC vol = null;
         try {
             String sql = "SELECT * FROM vol WHERE AeroportDepart = '" + aeroportDepart + "' AND AeroportArrivee = '"
                     + aeroportArrivee + "' AND DateDepart = '" + dateDepart + "' AND DateArrivee = '" + dateArrivee + "'";
             ResultSet rs = crude.exeRead(sql);
             while (rs.next()) {
-                vol = new Vol();
+                vol = new VolC();
                 vol.setId(rs.getInt(1));
                 vol.setAeroportDepart(rs.getString(2));
                 vol.setAeroportArrivee(rs.getString(3));

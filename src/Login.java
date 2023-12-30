@@ -253,8 +253,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnresetActionPerformed
 
     private void btnconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconnectActionPerformed
-                                                 
-    String login = jTextFieldlogin.getText();
+String login = jTextFieldlogin.getText();
     String pwd = jPasswordField1.getText();
 
     if (login.isEmpty() || pwd.isEmpty()) {
@@ -267,15 +266,20 @@ public class Login extends javax.swing.JFrame {
         UserControler uc = new UserControler();
         User u = uc.findByLoginPwd(login, pwd);
 
-        if (u == null) {
-            // Affichez une boîte de dialogue si l'utilisateur n'est pas trouvé
-            JOptionPane.showMessageDialog(this, "Utilisateur non trouvé. Veuillez vérifier vos identifiants.", "Erreur", JOptionPane.ERROR_MESSAGE);
-        } else {
-            // Affichez une boîte de dialogue si l'utilisateur est trouvé
-            JOptionPane.showMessageDialog(this, "Connexion réussie. Bienvenue, " + u.getLogin() + "!", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        // Utiliser equalsIgnoreCase pour une comparaison insensible à la casse
+        if ("admin".equalsIgnoreCase(login)) {
             this.setVisible(false);
-            new Index().setVisible(true);
-             
+            new GestionUsers().setVisible(true);
+        } else {
+            if (u == null) {
+                // Affichez une boîte de dialogue si l'utilisateur n'est pas trouvé
+                JOptionPane.showMessageDialog(this, "Utilisateur non trouvé. Veuillez vérifier vos identifiants.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Affichez une boîte de dialogue si l'utilisateur est trouvé
+                JOptionPane.showMessageDialog(this, "Connexion réussie. Bienvenue, " + u.getLogin() + "!", "Succès", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(false);
+                new Index().setVisible(true);
+            }
         }
     }
 

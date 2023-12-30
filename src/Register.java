@@ -237,41 +237,44 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_textfirstnameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String firstname = textfirstname.getText();
-        String lastname = txtlastname.getText();
-        String login = textlogin.getText();
-        String pwd = textpassword.getText();
-        
-        System.out.println(  "ajouter un nv register ");
-       
        
         
-        if (login.isEmpty() || pwd.isEmpty()) {
-        // Affichez une boîte de dialogue pour indiquer que le formulaire est incomplet
-        JOptionPane.showMessageDialog(this, "Formulaire incomplet. Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
-    } else {
-        // Tous les champs sont remplis, continuez avec l'ajout de l'utilisateur
-      
-        UserControler uc = new UserControler();
-        User user = new User();
-        uc.insert(user );
-        // Appelez la méthode insert de UserControler pour ajouter l'utilisateur
-        boolean success = uc.insert(user);
+       UserControler uc = new UserControler();
+User user = new User();
 
-        if (success) {
-            // Affichez une boîte de dialogue indiquant que l'utilisateur a été ajouté avec succès
-            JOptionPane.showMessageDialog(this, "Utilisateur ajouté avec succès", "Succès", JOptionPane.INFORMATION_MESSAGE);
-            
-            textfirstname.setText("");
-            txtlastname.setText("");
-            textlogin.setText("");
-            textpassword.setText("");
-            
-        } else {
-            // Affichez une boîte de dialogue en cas d'échec de l'ajout de l'utilisateur
-            JOptionPane.showMessageDialog(this, "Erreur lors de l'ajout de l'utilisateur", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }
+// Récupérer les valeurs depuis les champs de texte
+String firstname = textfirstname.getText();
+String lastname = txtlastname.getText();
+String login = textlogin.getText();
+String pwd = textpassword.getText();
+
+// Vérifier si les champs requis sont vides
+if (login.isEmpty() || pwd.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Formulaire incomplet. Veuillez remplir tous les champs.", "Erreur", JOptionPane.ERROR_MESSAGE);
+} else {
+    // Mettre à jour les propriétés de l'utilisateur avec les valeurs des champs
+    user.setFirstname(firstname);
+    user.setLastname(lastname);
+    user.setLogin(login);
+    user.setPwd(pwd);
+
+    // Appeler la méthode insert pour ajouter l'utilisateur
+    boolean success = uc.insert(user);
+
+    if (success) {
+        JOptionPane.showMessageDialog(this, "Utilisateur ajouté avec succès", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        
+        // Réinitialiser les champs de texte après l'ajout
+        textfirstname.setText("");
+        txtlastname.setText("");
+        textlogin.setText("");
+        textpassword.setText("");
+    } else {
+        JOptionPane.showMessageDialog(this, "Erreur lors de l'ajout de l'utilisateur", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
+
+}
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked

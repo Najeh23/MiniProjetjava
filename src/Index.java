@@ -8,16 +8,13 @@
  * @author wiki
 */
 
-import Model.Vol;
-import Controler.VolControler;
+import Model.Aeroport;
+import java.util.ArrayList;
+import Controler.AeroportControler;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
-import Controler.EscaleControler;
-import java.awt.Color;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.border.Border;
+
 public class Index extends javax.swing.JFrame {
 
     /**
@@ -38,7 +35,10 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jInternalFrame1.setVisible(true);
 
@@ -56,59 +56,108 @@ public class Index extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("VOLs");
-        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jLabel1AncestorAdded(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "NomAeroport", "Pays"
             }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 220, -1));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 680, 310));
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setText("View Aerports");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 230, -1));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 0, 0));
+        jButton2.setText("deconnexion .!");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 420, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
-
-                                     
-    // TODO add your handling code here:
-    VolControler volControler = new VolControler();
-    
-    // Récupérer tous les vols depuis la base de données en utilisant la méthode select
-    List<Vol> tousLesVols = volControler.getAll();
-
-    // Traiter les résultats
-    for (Vol vol : tousLesVols) {
-        // Accéder aux colonnes de chaque vol
-        int id = vol.getId();
-        String aeroportDepart = vol.getAeroportDepart();
-        String aeroportArrivee = vol.getAeroportArrivee();
-        String heureDepart = vol.getHeureDepart();
-        String heureArrivee = vol.getHeureArrivee();
-        String dateDepart = vol.getDateDepart();
-        String dateArrivee = vol.getDateArrivee();
-
-        // Faire quelque chose avec ces valeurs, par exemple, les afficher
-        System.out.println("ID: " + id);
-        System.out.println("Aéroport de départ: " + aeroportDepart);
-        System.out.println("Aéroport d'arrivée: " + aeroportArrivee);
-        System.out.println("Heure de départ: " + heureDepart);
-        System.out.println("Heure d'arrivée: " + heureArrivee);
-        System.out.println("Date de départ: " + dateDepart);
-        System.out.println("Date d'arrivée: " + dateArrivee);
-        System.out.println("-----");
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+            AeroportControler uc = new AeroportControler();
+         
+        ArrayList<Aeroport> alu  = new ArrayList<Aeroport>();
+        alu = (ArrayList<Aeroport>) uc.getAll();
+ 
         
+        DefaultTableModel model = new DefaultTableModel() ;
+        jTable1.setModel(model) ; 
+        model.addColumn("ID");
+        model.addColumn("NomAeroport");
+        model.addColumn("Pays");
+       
         
+        for(Aeroport u : alu){
+            model.addRow( new Object[] 
+            {   u.getId(),
+                u.getNomaeroport(), 
+                u.getPays(),                            
+              
+            });
+        }  
+        jTable1.setModel(model);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+ int selectedRow = jTable1.getSelectedRow();
+    if (selectedRow != -1) {
+        // Récupérez les données de la ligne sélectionnée
+        int id = (int) jTable1.getValueAt(selectedRow, 0);
+        String nomAeroport = (String) jTable1.getValueAt(selectedRow, 1);
+        String pays = (String) jTable1.getValueAt(selectedRow, 2);
+
+        // Utilisez les valeurs récupérées dans vos conditions
+        if ("Aéroport international de Monastir Habib-Bourguiba".equals(nomAeroport)) {
+            // Ouvrez la nouvelle fenêtre en passant les données
+            this.setVisible(false);
+            new VolM().setVisible(true);
+        }else if ("Aéroport international de Tunis-Carthage".equals(nomAeroport)) {
+            // Ouvrez la nouvelle fenêtre en passant les données
+            this.setVisible(false);
+            new VolT().setVisible(true);
+        }
+        else if ("Aéroport international de Djerba-Zarzis".equals(nomAeroport)) {
+            this.setVisible(false);
+            new VolDJ().setVisible(true);
+        }
     }
-   
-           
 
-    
-            
-    }//GEN-LAST:event_jLabel1AncestorAdded
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         this.setVisible(false);
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +195,10 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
