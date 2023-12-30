@@ -36,20 +36,23 @@ public class GestionUsers extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableusers = new javax.swing.JTable();
         btnSupprimer = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnAjouter = new javax.swing.JButton();
+        btnModifier = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnvoir.setBackground(new java.awt.Color(204, 204, 204));
         btnvoir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnvoir.setText("voir la  Liste");
+        btnvoir.setText("voir la  Liste des utilisateurs");
         btnvoir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnvoir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvoirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnvoir, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 190, -1));
+        getContentPane().add(btnvoir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 31, 360, 40));
 
         jTableusers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,10 +75,10 @@ public class GestionUsers extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableusers);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 350));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 350));
 
-        btnSupprimer.setBackground(new java.awt.Color(255, 0, 0));
         btnSupprimer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSupprimer.setForeground(new java.awt.Color(255, 0, 0));
         btnSupprimer.setText("supprimer");
         btnSupprimer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSupprimer.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +86,38 @@ public class GestionUsers extends javax.swing.JFrame {
                 btnSupprimerActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSupprimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 140, 40));
+        getContentPane().add(btnSupprimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 140, 50));
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Page precedente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 440, -1, -1));
+
+        btnAjouter.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnAjouter.setForeground(new java.awt.Color(0, 153, 0));
+        btnAjouter.setText("Ajouter");
+        btnAjouter.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAjouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjouterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAjouter, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 140, 40));
+
+        btnModifier.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnModifier.setText("Modifier");
+        btnModifier.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifierActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnModifier, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 140, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,6 +187,26 @@ public class GestionUsers extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSupprimerActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModifierActionPerformed
+
+    private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterActionPerformed
+
+    this.setVisible(false);
+        new Register().setVisible(true);
+   
+   
+    
+        
+    }//GEN-LAST:event_btnAjouterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,8 +243,11 @@ public class GestionUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAjouter;
+    private javax.swing.JButton btnModifier;
     private javax.swing.JButton btnSupprimer;
     private javax.swing.JButton btnvoir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableusers;
     // End of variables declaration//GEN-END:variables

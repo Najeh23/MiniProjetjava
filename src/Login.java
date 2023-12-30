@@ -253,7 +253,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnresetActionPerformed
 
     private void btnconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconnectActionPerformed
-String login = jTextFieldlogin.getText();
+    String login = jTextFieldlogin.getText();
     String pwd = jPasswordField1.getText();
 
     if (login.isEmpty() || pwd.isEmpty()) {
