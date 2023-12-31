@@ -10,6 +10,7 @@
 import Model.User;
 import java.util.ArrayList;
 import Controler.UserControler;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -45,14 +46,14 @@ public class GestionUsers extends javax.swing.JFrame {
 
         btnvoir.setBackground(new java.awt.Color(204, 204, 204));
         btnvoir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnvoir.setText("voir la  Liste des utilisateurs");
+        btnvoir.setText("Gestion des utilisateurs");
         btnvoir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnvoir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvoirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnvoir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 31, 360, 40));
+        getContentPane().add(btnvoir, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 420, 40));
 
         jTableusers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,9 +74,23 @@ public class GestionUsers extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableusers.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTableusersAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jTableusers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableusersMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableusers);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 350));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 510, 320));
 
         btnSupprimer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSupprimer.setForeground(new java.awt.Color(255, 0, 0));
@@ -86,17 +101,18 @@ public class GestionUsers extends javax.swing.JFrame {
                 btnSupprimerActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSupprimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 140, 50));
+        getContentPane().add(btnSupprimer, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 140, 50));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Page precedente");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 440, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, -1));
 
         btnAjouter.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAjouter.setForeground(new java.awt.Color(0, 153, 0));
@@ -107,7 +123,7 @@ public class GestionUsers extends javax.swing.JFrame {
                 btnAjouterActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAjouter, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 140, 40));
+        getContentPane().add(btnAjouter, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 140, 40));
 
         btnModifier.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnModifier.setText("Modifier");
@@ -117,85 +133,58 @@ public class GestionUsers extends javax.swing.JFrame {
                 btnModifierActionPerformed(evt);
             }
         });
-        getContentPane().add(btnModifier, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 140, 40));
+        getContentPane().add(btnModifier, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnvoirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvoirActionPerformed
-        // TODO add your handling code here:
-         UserControler uc = new UserControler();
-         
-        ArrayList<User> alu  = new ArrayList<User>();
+      
+        UserControler uc = new UserControler();
+        ArrayList<User> alu = new ArrayList<User>();
         alu = (ArrayList<User>) uc.getAll();
- 
-        
-        DefaultTableModel model = new DefaultTableModel() ;
-        jTableusers.setModel(model) ; 
+
+        DefaultTableModel model = new DefaultTableModel();
+        jTableusers.setModel(model);
         model.addColumn("Id");
         model.addColumn("FirstName");
         model.addColumn("LastName");
-        model.addColumn("Login"); 
+        model.addColumn("Login");
         model.addColumn("Password");
-        
-        for(User u : alu){
-            model.addRow( new Object[] 
-            {   u.getId(),
-                u.getFirstname(), 
-                u.getLastname(),                            
-                u.getLogin(),                        
-                u.getPwd()
-            });
-        }  
+
+        for (User u : alu) {
+            model.addRow(new Object[]{u.getId(), u.getFirstname(), u.getLastname(), u.getLogin(), u.getPwd()});
+        }
         jTableusers.setModel(model);
     }//GEN-LAST:event_btnvoirActionPerformed
 
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupprimerActionPerformed
         // TODO add your handling code here:
-       UserControler uc = new UserControler();
-         
-        ArrayList<User> alu  = new ArrayList<User>();
+         UserControler uc = new UserControler();
+        ArrayList<User> alu = new ArrayList<User>();
         alu = (ArrayList<User>) uc.getAll();
- 
-        
-        DefaultTableModel model = new DefaultTableModel() ;
-        jTableusers.setModel(model) ; 
-        model.addColumn("Id");
-        model.addColumn("FirstName");
-        model.addColumn("LastName");
-        model.addColumn("Login"); 
-        model.addColumn("Password");
-        
-        for(User u : alu){
-            model.addRow( new Object[] 
-            {   u.getId(),
-                u.getFirstname(), 
-                u.getLastname(),                            
-                u.getLogin(),                        
-                u.getPwd()
-            });
-        }  
-        
-        jTableusers.setModel(model); 
-     int selectedRow = jTableusers.getSelectedRow();
-   
-        // Récupérez les données de la ligne sélectionnée
-        int id = (int) jTableusers.getValueAt(selectedRow, 0);
-        String nomAeroport = (String) jTableusers.getValueAt(selectedRow, 1);
-       String pays = (String) jTableusers.getValueAt(selectedRow, 2); 
-       
+
+        int selectedRow = jTableusers.getSelectedRow();
+        if (selectedRow != -1) {
+            DefaultTableModel tableModel = (DefaultTableModel) jTableusers.getModel();
+            tableModel.removeRow(selectedRow);
+            User selectedUser = alu.get(selectedRow);
+            System.out.println(selectedUser.getId());
+            uc.delete(selectedUser);
+
+            System.out.println(selectedRow);
+            JOptionPane.showMessageDialog(this, "User supprimé avec succes", "Succés", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Veuillez selectionner une ligne");
+        }
         
     }//GEN-LAST:event_btnSupprimerActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new Login().setVisible(true);
+        new Admin().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnModifierActionPerformed
 
     private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjouterActionPerformed
 
@@ -206,6 +195,18 @@ public class GestionUsers extends javax.swing.JFrame {
     
         
     }//GEN-LAST:event_btnAjouterActionPerformed
+
+    private void jTableusersAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTableusersAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableusersAncestorAdded
+
+    private void jTableusersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableusersMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableusersMouseClicked
+
+    private void btnModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifierActionPerformed
+
+    }//GEN-LAST:event_btnModifierActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,4 +252,35 @@ public class GestionUsers extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableusers;
     // End of variables declaration//GEN-END:variables
+
+    public class Home extends javax.swing.JFrame {
+
+    private ArrayList<User> alu = new ArrayList<User>();
+    private UserControler uc = new UserControler();
+
+    public Home() {
+        initComponents();
+
+        alu = (ArrayList<User>) uc.getAll();
+
+        DefaultTableModel model = new DefaultTableModel();
+        jTableusers.setModel(model);
+        model.addColumn("Id");
+        model.addColumn("FirstName");
+        model.addColumn("LastName");
+        model.addColumn("Login");
+        model.addColumn("Password");
+
+        for (User u : alu) {
+            model.addRow(new Object[]{u.getId(), u.getFirstname(), u.getLastname(), u.getLogin(), u.getPwd()});
+        }
+        jTableusers.setModel(model);
+    }
+
+    private void initComponents() {
+        // ... Votre code d'initialisation
+    }
 }
+
+}
+
